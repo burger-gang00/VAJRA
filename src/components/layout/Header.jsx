@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Bell, Search, User, Calendar } from 'lucide-react';
 
-const Header = ({ title, subtitle }) => {
+const Header = ({ title, subtitle, searchTerm, onSearchChange }) => {
   const currentDate = new Date().toLocaleDateString('en-IN', {
     weekday: 'long',
     year: 'numeric',
@@ -11,7 +11,7 @@ const Header = ({ title, subtitle }) => {
 
   return (
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200">
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex items-center justify-between px-6 py-3 space-x-4">
         <div>
           <motion.h1
             initial={{ opacity: 0, y: -10 }}
@@ -38,6 +38,8 @@ const Header = ({ title, subtitle }) => {
             <input
               type="text"
               placeholder="Search districts, metrics..."
+              value={searchTerm || ''}
+              onChange={(e) => onSearchChange(e.target.value)}
               className="w-64 pl-10 pr-4 py-2 bg-slate-100 border border-slate-200 rounded-lg text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
             />
           </div>
@@ -49,7 +51,7 @@ const Header = ({ title, subtitle }) => {
           </button>
 
           {/* User */}
-          <div className="flex items-center gap-3 pl-4 border-l border-slate-200">
+          <div className="flex items-center gap-3 pl-4">
             <div className="hidden md:block text-right">
               <p className="text-sm font-medium text-slate-800">UIDAI Analyst</p>
               <p className="text-xs text-slate-500">Security Division</p>

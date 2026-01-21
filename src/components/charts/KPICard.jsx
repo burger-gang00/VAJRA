@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
-const KPICard = ({ 
-  title, 
-  value, 
-  subtitle, 
-  change, 
+const KPICard = ({
+  title,
+  value,
+  subtitle,
+  change,
   changeType = 'neutral',
   icon: Icon,
   color = 'blue',

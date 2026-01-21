@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
@@ -57,6 +57,22 @@ const sectionConfig = {
 function App() {
   const [activeSection, setActiveSection] = useState('overview');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [globalSearchTerm, setGlobalSearchTerm] = useState('');
+
+  // Auto-navigate to districts section when searching
+  useEffect(() => {
+    if (globalSearchTerm && globalSearchTerm.length > 0 && activeSection !== 'districts') {
+      setActiveSection('districts');
+    }
+  }, [globalSearchTerm]);
+
+  // Clear search when manually navigating away from districts
+  const handleSectionChange = (section) => {
+    if (section !== 'districts' && globalSearchTerm) {
+      setGlobalSearchTerm('');
+    }
+    setActiveSection(section);
+  };
 
   const currentSection = sectionConfig[activeSection];
   const SectionComponent = currentSection.component;
@@ -64,19 +80,21 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Sidebar */}
-      <Sidebar 
-        activeSection={activeSection} 
-        onSectionChange={setActiveSection}
+      <Sidebar
+        activeSection={activeSection}
+        onSectionChange={handleSectionChange}
       />
-      
+
       {/* Main Content */}
       <div className={`transition-all duration-300 ${sidebarCollapsed ? 'ml-[72px]' : 'ml-[260px]'}`}>
         {/* Header */}
-        <Header 
+        <Header
           title={currentSection.title}
           subtitle={currentSection.subtitle}
+          searchTerm={globalSearchTerm}
+          onSearchChange={setGlobalSearchTerm}
         />
-        
+
         {/* Content Area */}
         <main className="p-6">
           <AnimatePresence mode="wait">
@@ -87,7 +105,7 @@ function App() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <SectionComponent />
+              <SectionComponent searchTerm={globalSearchTerm} />
             </motion.div>
           </AnimatePresence>
         </main>

@@ -63,14 +63,14 @@ const Sidebar = ({ activeSection, onSectionChange }) => {
         {navItems.map((item) => {
           const isActive = activeSection === item.id;
           const Icon = item.icon;
-          
+
           return (
             <button
               key={item.id}
               onClick={() => onSectionChange(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 transition-all
-                ${isActive 
-                  ? 'nav-item-active text-orange-600' 
+                ${isActive
+                  ? 'nav-item-active text-orange-600'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
             >

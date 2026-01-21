@@ -21,7 +21,8 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
       fill="white" 
       textAnchor={x > cx ? 'start' : 'end'} 
       dominantBaseline="central"
-      className="text-xs font-medium"
+      className="text-base font-bold"
+      style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.5)' }}
     >
       {`${(percent * 100).toFixed(0)}%`}
     </text>
@@ -32,12 +33,12 @@ const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0];
     return (
-      <div className="bg-white/95 backdrop-blur-sm border border-slate-200 rounded-lg p-3 shadow-xl">
-        <p className="text-slate-800 font-medium">{data.name}</p>
-        <p className="text-slate-600 text-sm">
-          Value: <span className="text-orange-500 font-semibold">{data.value.toLocaleString()}</span>
+      <div className="bg-white/95 backdrop-blur-sm border-2 border-slate-300 rounded-xl p-4 shadow-2xl">
+        <p className="text-slate-900 font-bold text-base">{data.name}</p>
+        <p className="text-slate-700 text-sm mt-1">
+          Value: <span className="text-orange-600 font-bold text-base">{data.value.toLocaleString()}</span>
         </p>
-        <p className="text-slate-500 text-xs">
+        <p className="text-slate-600 text-sm mt-1 font-medium">
           {((data.value / payload[0].payload.total) * 100).toFixed(1)}% of total
         </p>
       </div>
@@ -46,12 +47,12 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-const DonutChart = ({ data, innerRadius = 60, outerRadius = 100, showLabels = true }) => {
+const DonutChart = ({ data, innerRadius = 70, outerRadius = 120, showLabels = true }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
   const dataWithTotal = data.map(item => ({ ...item, total }));
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={350}>
       <PieChart>
         <Pie
           data={dataWithTotal}
@@ -65,6 +66,9 @@ const DonutChart = ({ data, innerRadius = 60, outerRadius = 100, showLabels = tr
           dataKey="value"
           animationBegin={0}
           animationDuration={800}
+          paddingAngle={2}
+          stroke="white"
+          strokeWidth={2}
         >
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={entry.color} />
@@ -74,7 +78,9 @@ const DonutChart = ({ data, innerRadius = 60, outerRadius = 100, showLabels = tr
         <Legend 
           verticalAlign="bottom"
           iconType="circle"
-          formatter={(value) => <span className="text-slate-600 text-sm">{value}</span>}
+          iconSize={12}
+          wrapperStyle={{ paddingTop: '20px' }}
+          formatter={(value) => <span className="text-slate-700 text-sm font-medium">{value}</span>}
         />
       </PieChart>
     </ResponsiveContainer>

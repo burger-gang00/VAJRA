@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 
-const DataTable = ({ 
-  data, 
-  columns, 
+const DataTable = ({
+  data,
+  columns,
   title,
   maxHeight = '400px',
   highlightRows = [],
@@ -18,7 +18,7 @@ const DataTable = ({
           <thead className="sticky top-0 bg-slate-50 backdrop-blur-sm z-10">
             <tr>
               {columns.map((col, index) => (
-                <th 
+                <th
                   key={index}
                   className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase tracking-wider border-b border-slate-200"
                   style={{ width: col.width }}
@@ -45,7 +45,7 @@ const DataTable = ({
                   onClick={() => onRowClick && onRowClick(row, rowIndex)}
                 >
                   {columns.map((col, colIndex) => (
-                    <td 
+                    <td
                       key={colIndex}
                       className="px-4 py-3 text-sm"
                     >

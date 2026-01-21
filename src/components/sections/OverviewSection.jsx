@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { 
-  Database, 
-  MapPin, 
-  AlertTriangle, 
+import {
+  Database,
+  MapPin,
+  AlertTriangle,
   TrendingUp,
   IndianRupee,
   Users,
@@ -28,13 +28,13 @@ import {
 
 const OverviewSection = () => {
   const districtColumns = [
-    { 
-      header: 'Rank', 
+    {
+      header: 'Rank',
       accessor: 'rank',
       render: (val) => <span className="text-slate-500 font-mono">#{val}</span>
     },
-    { 
-      header: 'District', 
+    {
+      header: 'District',
       accessor: 'district',
       render: (val, row) => (
         <div>
@@ -43,8 +43,8 @@ const OverviewSection = () => {
         </div>
       )
     },
-    { 
-      header: 'Risk Score', 
+    {
+      header: 'Risk Score',
       accessor: 'score',
       render: (val) => (
         <div className="flex items-center gap-2">
@@ -55,8 +55,8 @@ const OverviewSection = () => {
         </div>
       )
     },
-    { 
-      header: 'D/B Ratio (Demographic-to-Biometric)', 
+    {
+      header: 'D/B Ratio (Demographic-to-Biometric)',
       accessor: 'dbRatio',
       render: (val) => (
         <span className={`font-mono ${val >= 2 ? 'text-red-600' : val >= 1.5 ? 'text-orange-600' : 'text-slate-600'}`}>
@@ -64,8 +64,8 @@ const OverviewSection = () => {
         </span>
       )
     },
-    { 
-      header: 'Adult %', 
+    {
+      header: 'Adult %',
       accessor: 'adultShare',
       render: (val) => (
         <span className={`font-mono ${val >= 10 ? 'text-red-600' : val >= 7 ? 'text-orange-600' : 'text-slate-600'}`}>
@@ -90,7 +90,7 @@ const OverviewSection = () => {
           <div className="flex-1">
             <h3 className="text-slate-800 font-semibold">Identity Injection Alert</h3>
             <p className="text-slate-600 text-sm mt-1">
-              38 anomalous districts identified with coordinated batch injection signatures. 
+              38 anomalous districts identified with coordinated batch injection signatures.
               12 Tier-1 critical districts require immediate intervention.
             </p>
           </div>
@@ -165,16 +165,16 @@ const OverviewSection = () => {
 
       {/* Charts Row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <ChartCard 
-          title="Transaction Distribution" 
+        <ChartCard
+          title="Transaction Distribution"
           subtitle="4.9M total transactions"
           icon={Database}
         >
           <DonutChart data={transactionDistribution} />
         </ChartCard>
 
-        <ChartCard 
-          title="Risk Tier Distribution" 
+        <ChartCard
+          title="Risk Tier Distribution"
           subtitle="765 districts classified"
           icon={Shield}
           className="lg:col-span-2"
@@ -199,8 +199,8 @@ const OverviewSection = () => {
       </div>
 
       {/* Monthly Trends */}
-      <ChartCard 
-        title="Monthly Transaction Trends" 
+      <ChartCard
+        title="Monthly Transaction Trends"
         subtitle="Jan 2025 - Dec 2025 analysis showing September anomaly peak"
         icon={TrendingUp}
       >
@@ -222,8 +222,8 @@ const OverviewSection = () => {
       {/* Bottom Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top States */}
-        <ChartCard 
-          title="Top 10 States by Activity" 
+        <ChartCard
+          title="Top 10 States by Activity"
           subtitle="Transaction volume distribution"
           icon={MapPin}
         >
@@ -240,8 +240,8 @@ const OverviewSection = () => {
         </ChartCard>
 
         {/* Critical Districts Table */}
-        <ChartCard 
-          title="Tier-1 Critical Districts" 
+        <ChartCard
+          title="Tier-1 Critical Districts"
           subtitle="Top 12 requiring immediate intervention"
           icon={AlertTriangle}
           alert

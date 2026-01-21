@@ -16,10 +16,13 @@ import {
   bahraichAnalysis,
 } from '../../data/dashboardData';
 
-const DistrictDeepDive = () => {
+const DistrictDeepDive = ({ searchTerm: globalSearchTerm }) => {
   const [selectedDistrict, setSelectedDistrict] = useState(tier1Districts[0]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [localSearchTerm, setLocalSearchTerm] = useState('');
   const [filterTier, setFilterTier] = useState('all');
+
+  // Use global search if provided, otherwise use local search
+  const searchTerm = globalSearchTerm || localSearchTerm;
 
   const filteredDistricts = tier1Districts.filter(d => {
     const matchesSearch = d.district.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -90,8 +93,8 @@ const DistrictDeepDive = () => {
           <input
             type="text"
             placeholder="Search districts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={localSearchTerm}
+            onChange={(e) => setLocalSearchTerm(e.target.value)}
             className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
           />
         </div>
